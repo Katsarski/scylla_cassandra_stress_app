@@ -1,6 +1,6 @@
 # Scylla Cassandra Stress Test Application
 
-- NOTE: I've noticed that cassandra-stress shall be run inside the ScyllaDB container itself, however I couldn't locate the stress test application inside so I've modified the solution to use and spin up another container (scylladb/cassandra-stress) that is invoked to generate the load. I think this approach has some advantages - mainly when stress testing the ScyllaDB container instance the resources of that container are not shared with the stress test application/container which will eventually result in more realistic results. This however introduced a (IMO small) problem with the overal duration of the tests which slightly differs from the provided as command line param times since spinning up the stress test container(s) takes several seconds. 
+- NOTE: I've noticed that cassandra-stress shall be run inside the ScyllaDB container itself (according to the task description), however I couldn't locate the stress test application inside so I've improvized to use and spin up another container (scylladb/cassandra-stress) that is separately invoked to generate the load. I think this approach has some advantages - mainly when stress testing the ScyllaDB container instance the resources of that container are not shared with the stress test application/container which will eventually result in more realistic results. This however introduced a (IMO small) problem with the overal duration of the tests which slightly differs from the provided as command line param times since spinning up the stress test container(s) takes several seconds which are also reflected in the output. 
 
 This repository contains a Python application designed to run concurrent stress tests on a ScyllaDB instance running inside a Docker container. The application collects and aggregates performance metrics such as operation rate, mean latency, 99th percentile latency, and maximum latency from all test instances.
 
@@ -34,10 +34,10 @@ This repository contains a Python application designed to run concurrent stress 
 2. Run the stress test:
     ```sh
     cd scylla_cassandra_stress_app
-    python stress_test_runner.py -d 1s,5m,10s -n your_scylladb_container_name
+    python stress_test_runner.py -d 25m,1h,50s -n your_scylladb_container_name
     ```
 
-    - `-d`: List of durations for the stress tests (e.g., `1s,5m,10s`).
+    - `-d`: List of durations for the stress tests (e.g., `25m,1h,50s`).
     - `-n`: Name of the ScyllaDB container (default: `some-scylla`).
 
 ## Example
