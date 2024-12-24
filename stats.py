@@ -61,7 +61,7 @@ class Stats:
         }
 
     @staticmethod
-    def print_aggregated_results(stats: "Stats") -> None:
+    def output_aggregated_results(stats: "Stats") -> None:
         """
         Prints the aggregated results in a human-readable format, including individual
         process start time, end time, and duration, prints and saves the results to a file.

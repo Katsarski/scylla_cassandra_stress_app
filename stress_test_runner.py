@@ -37,7 +37,7 @@ class StressTestRunner:
         """
         threads = 10
         command = f'docker run --rm scylladb/cassandra-stress "cassandra-stress write duration={self.duration} ' \
-                  f'-rate threads={threads} -node {Container.get_container_ip(self.container_name, subprocess)}"'
+                  f'-rate threads={threads} -node {Container.get_container_ip(self.container_name)}"'
 
         self.start_time = datetime.now()
         print(f"Running stress test with threads: {threads}, duration: {self.duration} against " \
@@ -88,7 +88,7 @@ def main() -> None:
             runner_result = future.result()
             stats.add(runner_result)
 
-    stats.print_aggregated_results(stats)
+    stats.output_aggregated_results(stats)
 
 if __name__ == "__main__":
     main()
