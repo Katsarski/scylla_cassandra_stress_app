@@ -1,6 +1,6 @@
 # Scylla Cassandra Stress Test Application
 
-- NOTE: I've noticed that cassandra-stress shall be ran inside the ScyllaDB container itself, however I couldn't locate the stress test application inside so I've modified the solution to use and spin up another container (scylladb/cassandra-stress) that is invoked to generate the load. I think this approach has some advantages - mainly when stress testing the ScyllaDB container instance the resources of that container are not shared with the stress test application/container which will eventually result in more realistic results.
+- NOTE: I've noticed that cassandra-stress shall be run inside the ScyllaDB container itself, however I couldn't locate the stress test application inside so I've modified the solution to use and spin up another container (scylladb/cassandra-stress) that is invoked to generate the load. I think this approach has some advantages - mainly when stress testing the ScyllaDB container instance the resources of that container are not shared with the stress test application/container which will eventually result in more realistic results.
 
 This repository contains a Python application designed to run concurrent stress tests on a ScyllaDB instance running inside a Docker container. The application collects and aggregates performance metrics such as operation rate, mean latency, 99th percentile latency, and maximum latency from all test instances.
 
@@ -12,8 +12,8 @@ This repository contains a Python application designed to run concurrent stress 
 
 ## Requirements
 
-- Python 3.6+
-- Docker
+- Python 3.6+ installed
+- Docker installed
 - ScyllaDB Docker image (`scylladb/scylla`) cloned
 - Cassandra stress Docker image (`scylladb/cassandra-stress`) cloned
 
@@ -21,8 +21,7 @@ This repository contains a Python application designed to run concurrent stress 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/scylla_cassandra_stress_app.git
-    cd scylla_cassandra_stress_app
+    git clone https://github.com/Katsarski/scylla_cassandra_stress_app.git
     ```
 
 ## Usage
@@ -34,6 +33,7 @@ This repository contains a Python application designed to run concurrent stress 
 
 2. Run the stress test:
     ```sh
+    cd scylla_cassandra_stress_app
     python stress_test_runner.py -d 1s,5m,10s -n your_scylladb_container_name
     ```
 
