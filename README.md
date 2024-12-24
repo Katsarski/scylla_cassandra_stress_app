@@ -63,4 +63,4 @@ The application will print the aggregated results to the console and save them t
 ## Known issues
 
 - The printed/stored output process/test duration also includes a ~15 seconds overhead due to the time it takes to spin up the `scylladb/cassandra-stress` container
-- The printed/stored output process/test duration does not properly calculate the elapsed time and can differ to up to +1 second 
+- The printed/stored output process/test duration does not properly round the seconds elapsed time and can differ to up to +1 second (excluding the time it takes to spin up the `scylladb/cassandra-stress` container)
