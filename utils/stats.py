@@ -1,7 +1,3 @@
-"""
-This module contains the Stats class for collection and aggregation of performance metrics during the stress test(s).
-"""
-
 import datetime
 import os
 import re
@@ -9,7 +5,7 @@ import statistics
 
 class Stats:
     """
-    A class for collecting, aggregating, and printing performance metrics gathered during stress test(s).
+    A class for collecting, aggregating, and printing/storing performance metrics gathered during stress test(s).
     """
 
     def __init__(self) -> None:
@@ -26,7 +22,7 @@ class Stats:
     def add(self, result: dict) -> None:
         """
         This method appends values for operation rate, latency mean, 99th percentile latency, 
-        max latency, start time, and end time from the given `result` dictionary to their respective lists.
+        max latency, start time, and end time from the given stress test run instance.
 
         :param result: A dictionary containing the performance metrics to be added.
         """
@@ -39,7 +35,7 @@ class Stats:
 
     def aggregate_results(self) -> dict:
         """
-        Aggregates the performance metrics from all added results.
+        Aggregates the performance metrics from all added stress test run results.
 
         :return A dictionary containing the performance results:
         """
@@ -63,7 +59,7 @@ class Stats:
     @staticmethod
     def output_aggregated_results(stats: "Stats") -> None:
         """
-        Prints the aggregated results in a human-readable format, including individual
+        Stores and prints the aggregated results in a human-readable format, including individual
         process start time, end time, and duration, prints and saves the results to a file.
         """
         results_dir = "Results"
@@ -104,12 +100,14 @@ class Stats:
         print(f"Results saved to {results_filename}")
 
     @staticmethod
-    def parse_run_output(output: str, instance_start_time: datetime, instance_end_time: datetime) -> dict:
+    def parse_result_output(output: str, instance_start_time: datetime, instance_end_time: datetime) -> dict:
         """
         Parses the output of the stress test command and extracts relevant statistics.
 
         :param output: The raw output from the `cassandra-stress` command.
-        :return Dictionary containing the raw performance metrics
+        :param instance_start_time: The start date/time of the stress test instance.
+        :param instance_end_time: The end date/time of the stress test instance.
+        :return Dictionary containing the performance metrics
         """
         # Regex patterns to extract needed metrics
         op_rate_pattern = r"Op rate\s*:\s*([\d,]+)\s*op/s"
